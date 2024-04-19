@@ -19,6 +19,7 @@ import '@/styles/index.scss'
 // 引入大仓库
 import pinia from './store'
 
+import '../mock/shuju'
 // 获取vue应用实例
 const app = createApp(App)
 // 安装element-plus插件
@@ -33,7 +34,7 @@ app.use(globalcomponent)
 app.use(pinia)
 
 // 引入路由鉴权代码
-import './permission'
+// import './permission'
 
 // 进行挂载
 app.mount('#app')

@@ -1,6 +1,6 @@
 <template>
   <div class="plate">
-    <h2>plate</h2>
+    <h2>社区板块</h2>
   </div>
 </template>
 
