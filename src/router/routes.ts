@@ -128,6 +128,51 @@ export const constantRoute = [
       icon: 'Platform',
     },
   },
+
+  {
+    path: '/communityManage',
+    component: () => import('@/layout/Index.vue'),
+    name: 'communityManage',
+    meta: {
+      title: '社区管理',
+      hidden: false,
+      icon: 'Platform',
+    },
+    redirect: '/communityManage/sectorManage',
+    children: [
+      {
+        path: '/communityManage/firstClassManage',
+        component: () => import('@/views/community-manage/first-class-manage/FirstClassMag.vue'),
+        name: 'FirstClassManage',
+        meta: {
+          title: '一级分类管理',
+          hidden: false,
+          icon: 'UserFilled',
+        },
+      },
+      {
+        path: '/communityManage/sectorManage',
+        component: () => import('@/views/community-manage/sector-manage/SectorMag.vue'),
+        name: 'SectorManage',
+        meta: {
+          title: '板块管理',
+          hidden: false,
+          icon: 'Platform',
+        },
+      },
+      {
+        path: '/communityManage/postManage',
+        component: () => import('@/views/community-manage/post-manage/PostMag.vue'),
+        name: 'PostManage',
+        meta: {
+          title: '帖子管理',
+          hidden: false,
+          icon: 'Monitor',
+        },
+      },
+    ],
+  },
+
   {
     path: '/officGood',
     component: () => import('@/layout/Index.vue'),
@@ -344,7 +389,6 @@ export const constantRoute = [
           hidden: false,
         },
       },
-      
     ],
   },
   {
