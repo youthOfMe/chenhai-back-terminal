@@ -389,6 +389,16 @@ export const constantRoute = [
           hidden: false,
         },
       },
+      {
+        path: '/apply/carousel',
+        component: () => import('@/views/apply-set/carousel-set/CarouselSet.vue'),
+        name: 'Carousel',
+        meta: {
+          title: '轮播图管理',
+          icon: 'ShoppingCartFull',
+          hidden: false,
+        },
+      },
     ],
   },
   {
