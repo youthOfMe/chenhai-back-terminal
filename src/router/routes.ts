@@ -314,6 +314,62 @@ export const constantRoute = [
       },
     ],
   },
+
+  {
+    path: '/user',
+    component: () => import('@/layout/Index.vue'),
+    name: 'user',
+    meta: {
+      title: '用户管理',
+      icon: 'Goods',
+      hidden: false,
+    },
+    redirect: '/user/info',
+    children: [
+      {
+        path: '/user/info',
+        component: () => import('@/views/user-manage/user-message/UserMessage.vue'),
+        name: 'UserMessage',
+        meta: {
+          title: '基础信息',
+          icon: 'ShoppingCartFull',
+          hidden: false,
+        },
+      },
+      {
+        path: '/user/manage',
+        component: () => import('@/views/user-manage/user-role/UserRole.vue'),
+        name: 'UserManage',
+        meta: {
+          title: '角色管理',
+          icon: 'UserFilled',
+          hidden: false,
+        },
+      },
+      {
+        path: '/user/limit',
+        component: () => import('@/views/user-manage/user-limit/UserLimit.vue'),
+        name: 'UserLimit',
+        meta: {
+          title: '权限管理',
+          icon: 'Monitor',
+          hidden: false,
+        },
+      },
+    ],
+  },
+
+  {
+    path: '/user/info/moreInfo',
+    component: () => import('@/views/user-manage/user-message/user-more-info/UserMoreInfo.vue'),
+    name: 'UserMoreInfo',
+    meta: {
+      title: '更多信息',
+      icon: 'Monitor',
+      hidden: false,
+    },
+  },
+
   {
     path: '/employee',
     component: () => import('@/layout/Index.vue'),
