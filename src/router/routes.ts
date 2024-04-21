@@ -151,6 +151,26 @@ export const constantRoute = [
         },
       },
       {
+        path: '/communityManage/columnManage',
+        component: () => import('@/views/community-manage/column-manage/ColumnMag.vue'),
+        name: 'ColumnManage',
+        meta: {
+          title: '专栏管理',
+          hidden: false,
+          icon: 'Platform',
+        },
+      },
+      {
+        path: '/communityManage/columnPost',
+        component: () => import('@/views/community-manage/column-manage/posts-of-columns/PostsOfColumns.vue'),
+        name: 'ColumnPost',
+        meta: {
+          title: '专栏的帖子',
+          hidden: true,
+          icon: 'Platform',
+        },
+      },
+      {
         path: '/communityManage/sectorManage',
         component: () => import('@/views/community-manage/sector-manage/SectorMag.vue'),
         name: 'SectorManage',
@@ -334,6 +354,7 @@ export const constantRoute = [
           title: '基础信息',
           icon: 'ShoppingCartFull',
           hidden: false,
+          threeMenu: true,
         },
       },
       {
@@ -356,18 +377,28 @@ export const constantRoute = [
           hidden: false,
         },
       },
+      {
+        path: '/user/moreInfo',
+        component: () => import('@/views/user-manage/user-message/user-more-info/UserMoreInfo.vue'),
+        name: 'UserMoreInfo',
+        meta: {
+          title: '更多信息',
+          icon: 'Monitor',
+          hidden: true,
+        },
+      },
+      {
+        path: '/user/morePostInfo',
+        component: () =>
+          import('@/views/user-manage/user-message/user-more-info/more-post-info/MorePostInfo.vue'),
+        name: 'UserMorePostInfo',
+        meta: {
+          title: '帖子详情',
+          icon: 'Monitor',
+          hidden: true,
+        },
+      },
     ],
-  },
-
-  {
-    path: '/user/info/moreInfo',
-    component: () => import('@/views/user-manage/user-message/user-more-info/UserMoreInfo.vue'),
-    name: 'UserMoreInfo',
-    meta: {
-      title: '更多信息',
-      icon: 'Monitor',
-      hidden: false,
-    },
   },
 
   {

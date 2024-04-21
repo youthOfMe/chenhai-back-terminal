@@ -1,18 +1,15 @@
 <template>
   <div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
     <el-card>
       <el-form style="display: flex; justify-content: space-between">
-        <el-form-item label="用户名">
-          <el-input placeholder="请输入用户名进行搜索"></el-input>
+        <el-form-item label="帖子名">
+          <el-input placeholder="请输入帖子关键信息搜索"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button slot="append" style="margin-left: 5px">搜索用户</el-button>
-          <el-button slot="append" style="margin-left: 5px" @click="addContent">添加用户</el-button>
-          <el-button slot="append" style="margin-left: 5px">重置用户</el-button>
-          <el-button slot="append" style="margin-left: 5px">删除用户</el-button>
+          <el-button slot="append" style="margin-left: 5px">搜索帖子</el-button>
+          <el-button slot="append" style="margin-left: 5px" @click="addContent">添加帖子</el-button>
+          <el-button slot="append" style="margin-left: 5px">重置帖子</el-button>
+          <el-button slot="append" style="margin-left: 5px">删除帖子</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -24,19 +21,12 @@
         style="width: 100%"
       >
         <el-table-column type="selection" fixed></el-table-column>
-        <el-table-column type="index" label="序号" width="60" fixed></el-table-column>
-        <el-table-column prop="id" label="ID" show-overflow-tooltip width="110"></el-table-column>
-        <el-table-column label="头像" width="100">
-          <img style="width: 3w; height: 3vw" src="/public/logo.png" />
-        </el-table-column>
-        <el-table-column prop="name" label="用户名" width="100"></el-table-column>
-        <el-table-column prop="name" label="账号" width="60"></el-table-column>
-        <el-table-column prop="id" label="手机号" width="150"></el-table-column>
-
-        <el-table-column prop="role" label="用户状态" width="150"></el-table-column>
-        <el-table-column prop="role" label="用户签名" width="150"></el-table-column>
-        <el-table-column prop="role" label="用户标签" width="150"></el-table-column>
-        <el-table-column fixed="right" label="操作" width="330">
+        <el-table-column type="index" label="序号" width="100" fixed></el-table-column>
+        <el-table-column prop="id" label="发帖数" width="150"></el-table-column>
+        <el-table-column prop="id" label="点赞数" width="150"></el-table-column>
+        <el-table-column prop="id" label="收藏数" width="150"></el-table-column>
+        <el-table-column prop="id" label="转发数" width="150"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="260">
           <template #default="{ row }">
             <div class="dialog-footer">
               <el-button icon="Edit" style="width: 4vw" size="small" @click="editContent">
@@ -45,12 +35,11 @@
               <el-button icon="Delete" style="width: 4vw; margin-right: 1vw" size="small">
                 删除
               </el-button>
-              <el-button icon="user" style="width: 4vw" size="small">禁用</el-button>
               <el-button
                 type="primary"
                 style="width: 4vw; margin-right: 1vw"
                 size="small"
-                @click="moreInfo"
+                @click="morePostInfo"
               >
                 更多
               </el-button>
@@ -172,11 +161,20 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store'
+
 import { ref, onMounted } from 'vue'
 import { post } from '@/utils/http'
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
+
+const checkedCities = ref(['Shanghai', 'Beijing'])
+const cities = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen']
+
+// 获取用户信息
+const userStore = useUserStore()
+const { userInfo } = storeToRefs(userStore)
 
 const dialogVisible = ref(false)
 const addVisible = ref(false)
@@ -234,14 +232,12 @@ function handleCurrentChange(page: number) {
 function handleSelectionChange(selection: any) {
   select.value = selection
 }
-// 跳转至更多信息页面
-const moreInfo = () => {
+// 跳转
+const morePostInfo = () => {
   router.push({
-    path: '/user/moreInfo',
+    path: '',
   })
 }
 //保存信息
 const save = () => {}
 </script>
-
-<style scoped></style>
