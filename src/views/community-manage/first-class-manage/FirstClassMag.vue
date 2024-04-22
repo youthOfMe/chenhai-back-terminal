@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between; margin-top: 1vw">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="目录">
           <el-input placeholder="请输入目录名进行搜索"></el-input>
         </el-form-item>

@@ -97,8 +97,8 @@ export const constantRoute = [
         },
       },
       {
-        path: '/acl/role',
-        component: () => import('@/views/acl/role/Index.vue'),
+        path: '/studyResource/role',
+        component: () => import('@/views/study-resource/role-manage-study/RoleManageStudy.vue'),
         name: 'Role',
         meta: {
           title: '角色管理',
@@ -107,9 +107,9 @@ export const constantRoute = [
         },
       },
       {
-        path: '/acl/permission',
-        component: () => import('@/views/acl/permission/Index.vue'),
-        name: 'Permission',
+        path: '/studyResource/menu',
+        component: () => import('@/views/study-resource/menu-manage-study/MenuManageStudy.vue'),
+        name: 'Menu',
         meta: {
           title: '菜单管理',
           hidden: false,
@@ -127,6 +127,97 @@ export const constantRoute = [
       hidden: false,
       icon: 'Platform',
     },
+  },
+
+  {
+    path: '/intelAnalytic',
+    component: () => import('@/layout/Index.vue'),
+    redirect: '/intelAnalytic/chartMag',
+    name: 'IntelAnalytic',
+    meta: {
+      title: '智能分析',
+      hidden: false,
+      icon: 'Platform',
+    },
+    children: [
+      {
+        path: '/intelAnalytic/chartMag',
+        component: () => import('@/views/intelligent-analytic/chart-manage/ChartMag.vue'),
+        name: 'ChartMag',
+        meta: {
+          title: '图表管理',
+          hidden: false,
+          icon: 'User',
+        },
+      },
+      {
+        path: '/intelAnalytic/codeMag',
+        component: () =>
+          import('@/views/intelligent-analytic/code-generation-manage/CodegenerationMag.vue'),
+        name: 'CodeMag',
+        meta: {
+          title: '代码生成管理',
+          hidden: false,
+          icon: 'UserFilled',
+        },
+      },
+    ],
+  },
+
+  {
+    path: '/learnResourceMag',
+    component: () => import('@/layout/Index.vue'),
+    redirect: '/learnResourceMag/chartMag',
+    name: 'LearnResourceMag',
+    meta: {
+      title: '学习资源管理',
+      hidden: false,
+      icon: 'Platform',
+    },
+    children: [
+      {
+        path: '/learnResourceMag/learnWeb',
+        component: () => import('@/views/learning-resource-manage/learning-web/LearnWeb.vue'),
+        name: 'LearnWeb',
+        meta: {
+          title: '学习网站',
+          hidden: false,
+          icon: 'User',
+        },
+      },
+      {
+        path: '/learnResourceMag/learnMaterial',
+        component: () =>
+          import('@/views/learning-resource-manage/learning-material/LearnMaterial.vue'),
+        name: 'LearnMaterial',
+        meta: {
+          title: '学习资料',
+          hidden: false,
+          icon: 'User',
+        },
+      },
+      {
+        path: '/learnResourceMag/learnPath',
+        component: () => import('@/views/learning-resource-manage/learning-path/LearnPath.vue'),
+        name: 'LearnPath',
+        meta: {
+          title: '学习路线',
+          hidden: false,
+          icon: 'User',
+        },
+      },
+      {
+        path: '/learnResourceMag/cardContent',
+        component: () =>
+          import('@/views/learning-resource-manage/learning-path/card-content/CardContent.vue'),
+        name: 'CardContent',
+        meta: {
+          title: '卡片内容',
+          hidden: true,
+          icon: 'User',
+        },
+      },
+    ],
   },
 
   {
@@ -162,7 +253,8 @@ export const constantRoute = [
       },
       {
         path: '/communityManage/columnPost',
-        component: () => import('@/views/community-manage/column-manage/posts-of-columns/PostsOfColumns.vue'),
+        component: () =>
+          import('@/views/community-manage/column-manage/posts-of-columns/PostsOfColumns.vue'),
         name: 'ColumnPost',
         meta: {
           title: '专栏的帖子',

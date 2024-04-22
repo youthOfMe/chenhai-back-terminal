@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="head-message my-card">
-      <el-form label="公告" style="display: flex; justify-content: space-between">
+      <el-form label="公告" style="display: flex; justify-content: space-between; height: 2vw">
         <el-button type="primary">编辑公告</el-button>
       </el-form>
     </div>
-    <div style="display: flex; justify-content: space-between">
+    <div style="display: flex; justify-content: space-between; margin-top: 1vw">
       <el-col :span="6" style="margin-right: 5px; border-radius: 15px">
         <el-card shadow="never" class="one" style="border-radius: 15px">
           <p>商品买卖区</p>

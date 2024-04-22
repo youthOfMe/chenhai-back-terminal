@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between; margin-top: 1vw">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="帖子">
           <el-input placeholder="请输入帖子名进行搜索"></el-input>
         </el-form-item>
@@ -19,22 +19,32 @@
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
+        border
         :header-cell-style="{ 'border-right': '1px solid #EEEEEE' }"
         :cell-style="{ 'border-right': '1px solid #EEEEEE' }"
       >
-        <el-table-column type="selection" fixed></el-table-column> 
-        <el-table-column prop="id"  label="ID" show-overflow-tooltip></el-table-column>
-        <el-table-column type="title" label="标题" fixed></el-table-column>
-        <el-table-column type="name"  label="发帖人" fixed></el-table-column>
-        <el-table-column type="content"  label="内容" fixed></el-table-column>
-        <el-table-column type="thumb" label="标签" fixed></el-table-column>
-        <el-table-column type="cover_url" label="归属板块" fixed></el-table-column>
-        <el-table-column type="avatar_url"  label="归属专栏" fixed></el-table-column>
-        <el-table-column type="created_time"  label="创建时间" fixed></el-table-column>
-        <el-table-column type="updateed_time"  label="更新时间" fixed></el-table-column>
+        <el-table-column type="selection" fixed></el-table-column>
+        <el-table-column prop="id" label="ID" fixed width="120"></el-table-column>
+        <el-table-column type="title" prop="name" label="标题"></el-table-column>
+        <el-table-column type="name" label="发帖人"></el-table-column>
+        <el-table-column type="content" label="内容"></el-table-column>
+        <el-table-column type="thumb" label="标签"></el-table-column>
+        <el-table-column type="cover_url" label="归属板块" width="120"></el-table-column>
+        <el-table-column type="avatar_url" label="归属专栏" width="120"></el-table-column>
+        <el-table-column
+          type="created_time"
+          prop="date"
+          label="创建时间"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          type="updateed_time"
+          prop="date"
+          label="更新时间"
+          width="150"
+        ></el-table-column>
         <el-table-column prop="thumb" label="点赞量"></el-table-column>
         <el-table-column prop="commit" label="评论数"></el-table-column>
-        <el-table-column type="more"label="更多" @click=""></el-table-column>
         <el-table-column width="150" label="操作" fixed="right">
           <template #default="{ row }">
             <div class="dialog-footer" style="width: 10vw">
@@ -167,7 +177,7 @@ onMounted(() => {
 })
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) 
+  const res = await post('/user', params.value)
   Data.value = res.data.list
   total.value = res.data.total
   loading.value = false

@@ -1,8 +1,8 @@
 <template>
   <el-card>
-    <el-form label="公告" style="display: flex; justify-content: space-between">
+    <el-form label="公告" style="display: flex; justify-content: space-between; height: 2vw">
       <el-form-item label="发布者">
-        <el-input placeholder="请输入发布者姓名进行搜索"></el-input>
+        <el-input placeholder="请输入发布者姓名搜索"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="addnote">新增公告</el-button>

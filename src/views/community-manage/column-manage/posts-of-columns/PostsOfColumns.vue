@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="帖子名">
           <el-input placeholder="请输入帖子关键信息搜索"></el-input>
         </el-form-item>

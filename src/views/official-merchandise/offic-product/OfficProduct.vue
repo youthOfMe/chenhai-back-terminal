@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="商品名">
           <el-input placeholder="请输入商品名进行搜索"></el-input>
         </el-form-item>
@@ -220,7 +220,7 @@ const editVisible = ref(false)
 const addContent = () => {
   addVisible.value = true
 }
-
+// 编辑商品
 const editContent = () => {
   editVisible.value = true
 }

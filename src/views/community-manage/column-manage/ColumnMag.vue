@@ -4,7 +4,7 @@
       <router-view></router-view>
     </keep-alive>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between; margin-top: 1vw">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="专栏">
           <el-input placeholder="请输入专栏名称进行搜索"></el-input>
         </el-form-item>
