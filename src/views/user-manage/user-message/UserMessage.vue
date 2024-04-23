@@ -4,7 +4,7 @@
       <router-view></router-view>
     </keep-alive>
     <el-card>
-      <el-form style="display: flex; justify-content: space-between;height: 2vw">
+      <el-form style="display: flex; justify-content: space-between; height: 2vw">
         <el-form-item label="用户名">
           <el-input placeholder="请输入用户名进行搜索"></el-input>
         </el-form-item>
