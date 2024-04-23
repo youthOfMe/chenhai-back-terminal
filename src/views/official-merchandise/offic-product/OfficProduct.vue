@@ -15,7 +15,7 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="commodityList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
@@ -23,22 +23,32 @@
         <el-table-column type="selection" fixed></el-table-column>
         <el-table-column type="index" label="序号" fixed></el-table-column>
         <el-table-column prop="id" label="ID" width="100"></el-table-column>
-        <el-table-column prop="name" label="归属分类" width="100"></el-table-column>
-        <el-table-column prop="name" label="价格" width="100"></el-table-column>
-        <el-table-column label="图片" width="100">
-          <img style="width: 2w; height: 2vw" src="/public/logo.png" />
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="description" label="描述"></el-table-column>
+        <el-table-column prop="categoryName" label="归属分类"></el-table-column>
+        <el-table-column prop="price" label="价格"></el-table-column>
+        <el-table-column label="图片">
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.image" />
+          </template>
         </el-table-column>
-        <el-table-column prop="name" label="描述" width="100"></el-table-column>
-        <el-table-column prop="role" label="状态" width="100"></el-table-column>
-        <el-table-column prop="date" label="创建时间" width="100"></el-table-column>
-        <el-table-column prop="date" label="更新时间" width="100"></el-table-column>
-        <el-table-column prop="role" label="创建者" width="100"></el-table-column>
-        <el-table-column prop="role" label="更新者" width="100"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="150">
+
+        <el-table-column prop="status" label="状态">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.status"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间"></el-table-column>
+        <el-table-column label="操作" fixed="right">
           <template #default="{ row }">
             <div
               class="dialog-footer"
-              style="display: flex; align-items: center; justify-content: center"
+              style="display: flex; justify-content: center; align-items: center"
             >
               <el-button icon="Edit" style="width: 3vw" size="small" @click="editContent">
                 编辑
@@ -204,10 +214,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { getCommodityPage } from '@/api'
 import { post } from '@/utils/http'
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
+
+// 维护商品数据
+const commodityList = ref([])
 
 // 上传图片
 import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
@@ -225,7 +239,6 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -250,24 +263,35 @@ const editRuleForm = ref({
   price: '',
 })
 
-onMounted(() => {
-  loadData()
-})
-async function loadData() {
-  loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
-  total.value = res.data.total
-  loading.value = false
+// 获取数据
+const loadCommodityData = async () => {
+  const res = await getCommodityPage({
+    page: 1,
+    pageSize: 10,
+    status: 1,
+  })
+  console.log(res, 999)
+  commodityList.value = res.data.records
 }
+
+onMounted(() => {
+  loadCommodityData()
+})
+// async function loadData() {
+//   loading.value = true
+//   const res = await post('/user', params.value) //获取员工信息
+//   commodityList.value = res.data.list
+//   total.value = res.data.total
+//   loading.value = false
+// }
 function handleSizeChange(pageSize: number) {
   params.value.pageSize = pageSize
-  loadData()
+  loadCommodityData()
 }
 
 function handleCurrentChange(page: number) {
   params.value.page = page
-  loadData()
+  loadCommodityData()
 }
 //勾选的数据
 function handleSelectionChange(selection: any) {
