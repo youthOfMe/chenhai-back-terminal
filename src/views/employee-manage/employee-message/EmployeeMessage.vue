@@ -20,7 +20,7 @@
     </el-card>
     <el-card>
       <el-table
-        :data="tableData"
+        :data="employeeList"
         style="width: 100%"
         v-loading="loading"
         element-loading-text="拼命加载中"
@@ -29,27 +29,24 @@
         <el-table-column prop="id" label="员工号" show-overflow-tooltip></el-table-column>
         <el-table-column prop="name" label="员工姓名" show-overflow-tooltip></el-table-column>
         <el-table-column prop="username" label="员工昵称" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="password" label="员工密码" show-overflow-tooltip></el-table-column>
         <el-table-column prop="phone" label="员工电话" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="sex" label="员工性别" show-overflow-tooltip></el-table-column>
-        <el-table-column
-          prop="id_number"
-          label="身份证号码"
-          show-overflow-tooltip
-        ></el-table-column>
-        <el-table-column label="员工状态">
-          <el-switch v-model="value1" />
+        <el-table-column prop="sex" label="员工性别" show-overflow-tooltip>
+          <template #default="{ row }">
+            <el-tag type="primary">{{ row.sex === 1 ? '女' : '男' }}</el-tag>
+          </template>
         </el-table-column>
-        <el-table-column
-          prop="create_time"
-          label="入职日期"
-          show-overflow-tooltip
-        ></el-table-column>
-        <el-table-column
-          prop="update_time"
-          label="员工名称"
-          show-overflow-tooltip
-        ></el-table-column>
+        <el-table-column label="员工状态">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.status"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="入职日期" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作">
           <template #default="{ row }">
             <el-button size="small" @click="editEmployee(row)" icon="Edit">编辑</el-button>
@@ -102,12 +99,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { getEmployeePage } from '@/api'
 import { post } from '@/utils/http'
 
 const value1 = ref(0)
 const dialogVisible = ref(false)
 const loading = ref(false)
-const tableData = ref()
+const employeeList = ref()
 
 const params = ref({
   page: 1,
@@ -131,8 +129,11 @@ onMounted(() => {
 
 async function loadData() {
   loading.value = true
-  const res = await post('/employee', params.value) //获取员工信息
-  tableData.value = res.data.list
+  const res = await getEmployeePage({
+    page: 1,
+    pageSize: 10,
+  })
+  employeeList.value = res.data.records
   total.value = res.data.total
   loading.value = false
 }
