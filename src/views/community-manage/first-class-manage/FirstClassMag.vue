@@ -15,7 +15,7 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="categoryList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
@@ -38,23 +38,23 @@
           show-overflow-tooltip
         ></el-table-column>
         <el-table-column
-          prop="name"
+          prop="description"
           min-width="50%"
           label="描述"
           show-overflow-tooltip
         ></el-table-column>
         <el-table-column
-          prop="date"
+          prop="createdTime"
           min-width="50%"
           label="创建时间"
           show-overflow-tooltip
         ></el-table-column>
-        <el-table-column
-          prop="date"
+        <!-- <el-table-column
+          prop="updatedTime"
           min-width="50%"
           label="更新时间"
           show-overflow-tooltip
-        ></el-table-column>
+        ></el-table-column> -->
         <el-table-column
           prop="role"
           min-width="39%"
@@ -67,7 +67,7 @@
               <el-button icon="Edit" style="width: 4vw" size="small" @click="editContent">
                 编辑
               </el-button>
-              <el-button icon="Delete" style="width: 4vw; margin-right: 1vw" size="small">
+              <el-button icon="Delete" style="margin-right: 1vw; width: 4vw" size="small">
                 删除
               </el-button>
             </div>
@@ -153,6 +153,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { getCommunityCategoryPage } from '@/api'
 import { post } from '@/utils/http'
 
 const dialogVisible = ref(false)
@@ -167,7 +168,7 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
+const categoryList = ref([])
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -193,9 +194,9 @@ onMounted(() => {
 })
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
-  total.value = res.data.total
+  const res = await getCommunityCategoryPage()
+  categoryList.value = res.data
+  // total.value = res.data.total
   loading.value = false
 }
 function handleSizeChange(pageSize: number) {
