@@ -15,31 +15,39 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="setmealList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
       >
         <el-table-column type="selection" fixed></el-table-column>
         <el-table-column type="index" label="序号" fixed></el-table-column>
-        <el-table-column prop="id" label="ID" width="100"></el-table-column>
-        <el-table-column prop="id" label="类别id" width="100"></el-table-column>
-        <el-table-column prop="name" label="名称" width="100"></el-table-column>
-        <el-table-column prop="id" label="价格" width="100"></el-table-column>
-        <el-table-column prop="role" label="状态" width="100"></el-table-column>
-        <el-table-column prop="role" label="描述" width="100"></el-table-column>
-        <el-table-column label="图片" width="100">
-          <img style="width: 2w; height: 2vw" src="/public/logo.png" />
+        <el-table-column prop="id" label="ID"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="price" label="价格"></el-table-column>
+        <el-table-column prop="categoryId" label="类别id"></el-table-column>
+        <el-table-column prop="status" label="状态">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.status"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
         </el-table-column>
-        <el-table-column prop="date" label="创建时间" width="150"></el-table-column>
-        <el-table-column prop="date" label="更新时间" width="150"></el-table-column>
-        <el-table-column prop="role" label="创建者" width="100"></el-table-column>
-        <el-table-column prop="role" label="更新者" width="100"></el-table-column>
+
+        <el-table-column label="图片">
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.image" />
+          </template>
+        </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间"></el-table-column>
         <el-table-column label="操作" fixed="right" width="150">
           <template #default="{ row }">
             <div
               class="dialog-footer"
-              style="display: flex; align-items: center; justify-content: center"
+              style="display: flex; justify-content: center; align-items: center"
             >
               <el-button icon="Edit" style="width: 3vw" size="small" @click="editContent">
                 编辑
@@ -67,13 +75,8 @@
     </el-card>
 
     <!-- 添加套餐 -->
-    <el-dialog
-      v-model="addVisible"
-      title="&nbsp;&nbsp;新增套餐"
-      width="500"
-      style="margin-top: 10vw"
-    >
-      <div style="width: 60vw">
+    <el-dialog v-model="addVisible" title="&nbsp;&nbsp;新增套餐" style="margin-top: 10vw">
+      <div>
         <el-form :model="addRuleForm" label-width="80px" style="margin-top: 2vw" ref="addRuleForm">
           <el-col :span="12">
             <el-form-item label="套餐标题" prop="name">
@@ -134,13 +137,8 @@
       </template>
     </el-dialog>
     <!-- 编辑套餐 -->
-    <el-dialog
-      v-model="editVisible"
-      title="&nbsp;&nbsp;编辑套餐"
-      width="500"
-      style="margin-top: 10vw"
-    >
-      <div style="width: 60vw">
+    <el-dialog v-model="editVisible" title="&nbsp;&nbsp;编辑套餐" style="margin-top: 10vw">
+      <div>
         <el-form :model="editRuleForm" style="margin-top: 2vw; width: 100%" ref="editRuleForm">
           <el-col :span="12" style="width: 100%">
             <el-form-item label="套餐名称" prop="name">
@@ -205,7 +203,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { post } from '@/utils/http'
+import { getSetmealPage } from '@/api'
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -226,7 +224,7 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
+const setmealList = ref()
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -256,8 +254,12 @@ onMounted(() => {
 })
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
+  const res = await getSetmealPage({
+    page: 1,
+    pageSize: 10,
+    status: 1,
+  })
+  setmealList.value = res.data.records
   total.value = res.data.total
   loading.value = false
 }

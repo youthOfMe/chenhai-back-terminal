@@ -82,7 +82,7 @@
       width="500"
       style="margin-top: 10vw"
     >
-      <div style="width: 60vw">
+      <div>
         <el-form :model="addRuleForm" label-width="80px" style="margin-top: 2vw" ref="addRuleForm">
           <el-col :span="12">
             <el-form-item label="商品标题" prop="name">
@@ -146,10 +146,10 @@
     <el-dialog
       v-model="editVisible"
       title="&nbsp;&nbsp;编辑商品"
-      width="500"
       style="margin-top: 10vw"
+      width="500"
     >
-      <div style="width: 60vw">
+      <div>
         <el-form :model="editRuleForm" style="margin-top: 2vw; width: 100%" ref="editRuleForm">
           <el-col :span="12" style="width: 100%">
             <el-form-item label="商品名称" prop="name">
