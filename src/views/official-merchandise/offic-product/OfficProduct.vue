@@ -270,7 +270,6 @@ const loadCommodityData = async () => {
     pageSize: 10,
     status: 1,
   })
-  console.log(res, 999)
   commodityList.value = res.data.records
 }
 

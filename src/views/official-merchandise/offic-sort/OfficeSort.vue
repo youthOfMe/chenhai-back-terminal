@@ -15,26 +15,37 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="categoryList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
       >
         <el-table-column type="selection" fixed></el-table-column>
         <el-table-column type="index" label="序号" fixed></el-table-column>
-        <el-table-column prop="id" label="ID" width="100"></el-table-column>
-        <el-table-column prop="name" label="名称" width="100"></el-table-column>
-        <el-table-column prop="name" label="类型" width="100"></el-table-column>
-        <el-table-column prop="id" label="排序" width="100"></el-table-column>
-        <el-table-column prop="date" label="创建时间" width="150"></el-table-column>
-        <el-table-column prop="date" label="更新时间" width="150"></el-table-column>
-        <el-table-column prop="role" label="创建者" width="100"></el-table-column>
-        <el-table-column prop="role" label="更新者" width="100"></el-table-column>
+        <el-table-column prop="id" label="ID"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="type" label="类型">
+          <template #default="{ row }">
+            <el-tag type="primary">{{ row.type === 1 ? '商品分类' : '套餐分类' }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" label="状态">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.status"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间"></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间"></el-table-column>
         <el-table-column label="操作" fixed="right" width="150">
           <template #default="{ row }">
             <div
               class="dialog-footer"
-              style="display: flex; align-items: center; justify-content: center"
+              style="display: flex; justify-content: center; align-items: center"
             >
               <el-button icon="Edit" style="width: 3vw" size="small" @click="editContent">
                 编辑
@@ -200,7 +211,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { post } from '@/utils/http'
+import { getCategoryPage } from '@/api'
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -221,7 +232,7 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
+const categoryList = ref([])
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -249,10 +260,14 @@ const editRuleForm = ref({
 onMounted(() => {
   loadData()
 })
+// 获取分类数据
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
+  const res = await getCategoryPage({
+    page: 1,
+    pageSize: 10,
+  })
+  categoryList.value = res.data.records
   total.value = res.data.total
   loading.value = false
 }
