@@ -5,9 +5,9 @@
       <el-col :span="12" :xs="24">
         <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>Hello</h1>
-          <h2>欢迎来到牛马商城后台管理系统</h2>
+          <h2>欢迎来到辰海烟雨管理终端</h2>
           <el-form-item prop="account">
-            <el-input v-model="loginForm.account" :prefix-icon="User"></el-input>
+            <el-input v-model="loginForm.username" :prefix-icon="User"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
@@ -50,7 +50,7 @@ const $route = useRoute()
 // 获取全局路由对象
 const $router = useRouter()
 // 收集账号密码
-const loginForm = reactive({ account: 'admin', password: '111111', type: 1 })
+const loginForm = reactive({ username: 'admin', password: '123456' })
 // 控制按钮的加载效果
 const loading = ref<boolean>(false)
 // 获取表单对象

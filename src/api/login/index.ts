@@ -9,7 +9,7 @@ import { AxiosHeaders } from 'axios'
 export function login(data: any) {
   return xhRequest.post<any>({
     headers: new AxiosHeaders(),
-    url: '/user/user/login',
+    url: '/admin/employee/login',
     data,
   })
 }
@@ -21,6 +21,6 @@ export function login(data: any) {
 export function getUserInfo() {
   return xhRequest.get<any>({
     headers: new AxiosHeaders(),
-    url: '/user/user/userInfo',
+    url: '/admin/employee/userInfo',
   })
 }
