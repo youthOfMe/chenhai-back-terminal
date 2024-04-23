@@ -18,37 +18,49 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="userList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
       >
         <el-table-column type="selection" fixed></el-table-column>
-        <el-table-column type="index" label="序号" width="60" fixed></el-table-column>
-        <el-table-column prop="id" label="ID" show-overflow-tooltip width="110"></el-table-column>
-        <el-table-column label="头像" width="100">
-          <img style="width: 3w; height: 3vw" src="/public/logo.png" />
+        <el-table-column type="index" label="序号" fixed></el-table-column>
+        <el-table-column prop="id" label="ID" show-overflow-tooltip></el-table-column>
+        <el-table-column label="头像">
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.avatar" />
+          </template>
         </el-table-column>
-        <el-table-column prop="name" label="用户名" width="100"></el-table-column>
-        <el-table-column prop="name" label="账号" width="60"></el-table-column>
-        <el-table-column prop="id" label="手机号" width="150"></el-table-column>
+        <el-table-column prop="name" label="用户名"></el-table-column>
+        <el-table-column prop="account" label="账号"></el-table-column>
+        <!-- <el-table-column prop="phone" label="手机号"></el-table-column> -->
 
-        <el-table-column prop="role" label="用户状态" width="150"></el-table-column>
-        <el-table-column prop="role" label="用户签名" width="150"></el-table-column>
-        <el-table-column prop="role" label="用户标签" width="150"></el-table-column>
+        <el-table-column prop="role" label="用户状态">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.status"
+              class="ml-2"
+              :active-value="0"
+              :inactive-value="1"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="signature" label="用户签名"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间"></el-table-column>
+        <el-table-column prop="updateTime" label="更新时间"></el-table-column>
         <el-table-column fixed="right" label="操作" width="330">
           <template #default="{ row }">
             <div class="dialog-footer">
               <el-button icon="Edit" style="width: 4vw" size="small" @click="editContent">
                 编辑
               </el-button>
-              <el-button icon="Delete" style="width: 4vw; margin-right: 1vw" size="small">
+              <el-button icon="Delete" style="margin-right: 1vw; width: 4vw" size="small">
                 删除
               </el-button>
               <el-button icon="user" style="width: 4vw" size="small">禁用</el-button>
               <el-button
                 type="primary"
-                style="width: 4vw; margin-right: 1vw"
+                style="margin-right: 1vw; width: 4vw"
                 size="small"
                 @click="moreInfo"
               >
@@ -75,7 +87,7 @@
       </div>
     </el-card>
     <!-- 添加用户 -->
-    <el-dialog v-model="addVisible" title="&nbsp;&nbsp;新增用户" width="500">
+    <el-dialog v-model="addVisible" title="&nbsp;&nbsp;新增用户">
       <div>
         <el-form
           :model="addRuleForm"
@@ -122,7 +134,7 @@
     </el-dialog>
     <!-- 编辑用户 -->
 
-    <el-dialog v-model="editVisible" title="&nbsp;&nbsp;编辑用户" width="500">
+    <el-dialog v-model="editVisible" title="&nbsp;&nbsp;编辑用户">
       <div>
         <el-form
           :model="addRuleForm"
@@ -171,9 +183,8 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { ref, onMounted } from 'vue'
-import { post } from '@/utils/http'
+import { getUserPage } from '@/api'
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -190,7 +201,7 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
+const userList = ref()
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -216,8 +227,10 @@ onMounted(() => {
 })
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
+  const res = await getUserPage({
+    ...params.value,
+  })
+  userList.value = res.data.records
   total.value = res.data.total
   loading.value = false
 }
