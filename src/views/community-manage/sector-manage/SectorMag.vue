@@ -15,7 +15,7 @@
     </el-card>
     <el-card style="margin-top: 5px">
       <el-table
-        :data="Data"
+        :data="blockList"
         element-loading-text="拼命加载中"
         v-loading="loading"
         style="width: 100%"
@@ -44,42 +44,45 @@
           show-overflow-tooltip
         ></el-table-column>
         <el-table-column prop="name" min-width="50%" label="封面" show-overflow-tooltip>
-          <img
-            src="https://ts3.cn.mm.bing.net/th?id=OIP-C.h9mjwCJcnjlnT8rmwgi16wHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-            style="width: 100%"
-          />
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.coverUrl" />
+          </template>
         </el-table-column>
         <el-table-column
-          prop="date"
+          prop="createdTime"
           min-width="50%"
           label="创建时间"
           show-overflow-tooltip
         ></el-table-column>
         <el-table-column
-          prop="date"
+          prop="updatedTime"
           min-width="50%"
           label="更新时间"
           show-overflow-tooltip
         ></el-table-column>
         <el-table-column
-          prop="role"
+          prop="parentId"
           min-width="39%"
           label="归属分类"
           show-overflow-tooltip
         ></el-table-column>
-        <el-table-column
-          prop="name"
-          min-width="39%"
-          label="推荐"
-          show-overflow-tooltip
-        ></el-table-column>
+        <el-table-column prop="name" min-width="39%" label="推荐" show-overflow-tooltip>
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.recommended"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
+        </el-table-column>
         <el-table-column min-width="60%" label="操作">
           <template #default="{ row }">
             <div class="dialog-footer" style="width: 10vw">
               <el-button icon="Edit" style="width: 3vw" size="small" @click="editContent">
                 编辑
               </el-button>
-              <el-button icon="Delete" style="width: 3vw; margin-right: 1vw" size="small">
+              <el-button icon="Delete" style="margin-right: 1vw; width: 3vw" size="small">
                 删除
               </el-button>
             </div>
@@ -164,6 +167,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { getCommunityBlockPage } from '@/api'
 import { post } from '@/utils/http'
 
 const dialogVisible = ref(false)
@@ -178,7 +182,7 @@ const editContent = () => {
   editVisible.value = true
 }
 
-let Data = ref()
+const blockList = ref()
 const total = ref(0)
 const select = ref()
 select.value = []
@@ -204,9 +208,9 @@ onMounted(() => {
 })
 async function loadData() {
   loading.value = true
-  const res = await post('/user', params.value) //获取员工信息
-  Data.value = res.data.list
-  total.value = res.data.total
+  const res = await getCommunityBlockPage()
+  blockList.value = res.data
+  // total.value = res.data.total
   loading.value = false
 }
 function handleSizeChange(pageSize: number) {
