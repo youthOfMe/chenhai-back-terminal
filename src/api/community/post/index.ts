@@ -9,5 +9,14 @@ export function getPostPage() {
   return xhRequest.get<any>({
     headers: new AxiosHeaders(),
     url: '/admin/community/post/list',
+    params: {},
+  })
+}
+
+export function getPostPage1() {
+  return xhRequest.get<any>({
+    headers: new AxiosHeaders(),
+    url: '/admin/community/post/list',
+    params: {},
   })
 }
