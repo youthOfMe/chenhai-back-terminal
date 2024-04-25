@@ -25,19 +25,18 @@
       >
         <el-table-column type="selection" fixed></el-table-column>
         <el-table-column type="index" width="60" label="序号" fixed></el-table-column>
-        <el-table-column prop="id" width="110" label="ID" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="name" width="110" label="帖子名称"></el-table-column>
-        <el-table-column prop="name" width="110" label="帖子内容"></el-table-column>
-        <el-table-column prop="name" width="110" label="点赞量"></el-table-column>
-        <el-table-column prop="name" width="110" label="评论数"></el-table-column>
-        <el-table-column prop="name" width="110" label="转发量"></el-table-column>
-        <el-table-column prop="name" width="110" label="封面" show-overflow-tooltip>
-          <img
-            src="https://ts3.cn.mm.bing.net/th?id=OIP-C.h9mjwCJcnjlnT8rmwgi16wHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-            style="width: 100%"
-          />
+        <el-table-column prop="postId" label="ID" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="title" label="帖子名称" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="content" label="帖子内容" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="thumb" label="点赞量"></el-table-column>
+        <el-table-column prop="commit" label="评论数"></el-table-column>
+        <el-table-column prop="share" label="转发量"></el-table-column>
+        <el-table-column prop="name" label="封面" show-overflow-tooltip>
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.coverUrl" />
+          </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           prop="name"
           width="110"
           label="标签"
@@ -48,32 +47,32 @@
           width="110"
           label="图片标签"
           show-overflow-tooltip
-        ></el-table-column>
-        <el-table-column
-          prop="name"
+        ></el-table-column> -->
+        <!-- <el-table-column
+          prop="columnId"
           width="110"
           label="专栏"
           show-overflow-tooltip
-        ></el-table-column>
-        <el-table-column prop="date" width="110" label="创建时间"></el-table-column>
-        <el-table-column prop="date" width="110" label="更新时间"></el-table-column>
-        <el-table-column prop="name" width="110" label="头像" show-overflow-tooltip>
-          <img
-            src="https://ts3.cn.mm.bing.net/th?id=OIP-C.h9mjwCJcnjlnT8rmwgi16wHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-            style="width: 100%"
-          />
+        ></el-table-column> -->
+        <el-table-column prop="createdTime" width="110" label="创建时间"></el-table-column>
+        <el-table-column prop="updatedTime" width="110" label="更新时间"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="name" label="头像" show-overflow-tooltip>
+          <template #default="scope">
+            <img style="width: 100px; height: 100px" :src="scope.row.avatarUrl" />
+          </template>
         </el-table-column>
-        <el-table-column prop="name" width="110" label="名称"></el-table-column>
-        <el-table-column prop="name" width="110" label="图片" show-overflow-tooltip>
-          <img
-            src="https://ts3.cn.mm.bing.net/th?id=OIP-C.h9mjwCJcnjlnT8rmwgi16wHaEo&w=316&h=197&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
-            style="width: 100%"
-          />
+        <el-table-column prop="name" label="推荐">
+          <template #default="scope">
+            <el-switch
+              v-model="scope.row.recommended"
+              class="ml-2"
+              :active-value="1"
+              :inactive-value="0"
+            />
+          </template>
         </el-table-column>
-        <el-table-column prop="role" width="110" label="活动状态"></el-table-column>
-        <el-table-column prop="role" width="110" label="专栏名称"></el-table-column>
-        <el-table-column prop="name" width="110" label="推荐"></el-table-column>
-        <el-table-column width="150" label="操作" fixed="right">
+        <el-table-column label="操作" fixed="right">
           <template #default="{ row }">
             <div class="dialog-footer" style="width: 10vw">
               <el-button icon="Edit" style="width: 4vw" size="small" @click="editContent">

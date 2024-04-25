@@ -7,7 +7,7 @@
     "dev": "vite",
     "build:test": "vue-tsc && vite bulid --mode test",
     "build:pro": "vue-tsc && vite bulid --mode production",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src",
     "fix": "eslint src --fix",

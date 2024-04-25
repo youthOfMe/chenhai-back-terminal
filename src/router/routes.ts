@@ -32,7 +32,7 @@ export const constantRoute = [
         meta: {
           title: '用户资料',
           hidden: false,
-          icon: 'HomeFilled',
+          icon: 'UserFilled',
         },
       },
     ],
@@ -43,93 +43,6 @@ export const constantRoute = [
     },
   },
   {
-    path: '/community',
-    component: () => import('@/layout/Index.vue'),
-    redirect: '/community/plate',
-    name: 'community',
-    meta: {
-      title: '社区功能',
-      hidden: false,
-      icon: 'Platform',
-    },
-    children: [
-      {
-        path: '/community/plate',
-        component: () => import('@/views/community/plate/Plate.vue'),
-        name: 'communityPlate',
-        meta: {
-          title: '社区板块',
-          hidden: false,
-          icon: 'User',
-        },
-      },
-      {
-        path: '/community/post',
-        component: () => import('@/views/community/post/Post.vue'),
-        name: 'communityPost',
-        meta: {
-          title: '社区帖子',
-          hidden: false,
-          icon: 'User',
-        },
-      },
-    ],
-  },
-  {
-    path: '/studyResource',
-    component: () => import('@/layout/Index.vue'),
-    redirect: '/studyResource/web',
-    name: 'studyResource',
-    meta: {
-      title: '学习资源',
-      hidden: false,
-      icon: 'Platform',
-    },
-    children: [
-      {
-        path: '/studyResource/web',
-        component: () => import('@/views/study-resource/web/Web.vue'),
-        name: 'studyWeb',
-        meta: {
-          title: '学习网站',
-          hidden: false,
-          icon: 'User',
-        },
-      },
-      {
-        path: '/studyResource/role',
-        component: () => import('@/views/study-resource/role-manage-study/RoleManageStudy.vue'),
-        name: 'Role',
-        meta: {
-          title: '角色管理',
-          hidden: false,
-          icon: 'UserFilled',
-        },
-      },
-      {
-        path: '/studyResource/menu',
-        component: () => import('@/views/study-resource/menu-manage-study/MenuManageStudy.vue'),
-        name: 'Menu',
-        meta: {
-          title: '菜单管理',
-          hidden: false,
-          icon: 'Monitor',
-        },
-      },
-    ],
-  },
-  {
-    path: '/screen',
-    component: () => import('@/views/screen/Index.vue'),
-    name: 'Screen',
-    meta: {
-      title: '数据大屏',
-      hidden: false,
-      icon: 'Platform',
-    },
-  },
-
-  {
     path: '/intelAnalytic',
     component: () => import('@/layout/Index.vue'),
     redirect: '/intelAnalytic/chartMag',
@@ -137,7 +50,7 @@ export const constantRoute = [
     meta: {
       title: '智能分析',
       hidden: false,
-      icon: 'Platform',
+      icon: 'PieChart',
     },
     children: [
       {
@@ -147,7 +60,7 @@ export const constantRoute = [
         meta: {
           title: '图表管理',
           hidden: false,
-          icon: 'User',
+          icon: 'PieChart',
         },
       },
       {
@@ -158,7 +71,7 @@ export const constantRoute = [
         meta: {
           title: '代码生成管理',
           hidden: false,
-          icon: 'UserFilled',
+          icon: 'CircleCheck',
         },
       },
     ],
@@ -172,7 +85,7 @@ export const constantRoute = [
     meta: {
       title: '学习资源管理',
       hidden: false,
-      icon: 'Platform',
+      icon: 'DataLine',
     },
     children: [
       {
@@ -182,7 +95,7 @@ export const constantRoute = [
         meta: {
           title: '学习网站',
           hidden: false,
-          icon: 'User',
+          icon: 'Monitor',
         },
       },
       {
@@ -193,7 +106,7 @@ export const constantRoute = [
         meta: {
           title: '学习资料',
           hidden: false,
-          icon: 'User',
+          icon: 'Document',
         },
       },
       {
@@ -203,18 +116,7 @@ export const constantRoute = [
         meta: {
           title: '学习路线',
           hidden: false,
-          icon: 'User',
-        },
-      },
-      {
-        path: '/learnResourceMag/cardContent',
-        component: () =>
-          import('@/views/learning-resource-manage/learning-path/card-content/CardContent.vue'),
-        name: 'CardContent',
-        meta: {
-          title: '卡片内容',
-          hidden: true,
-          icon: 'User',
+          icon: 'DataLine',
         },
       },
     ],
@@ -227,7 +129,7 @@ export const constantRoute = [
     meta: {
       title: '社区管理',
       hidden: false,
-      icon: 'Platform',
+      icon: 'ElementPlus',
     },
     redirect: '/communityManage/sectorManage',
     children: [
@@ -238,7 +140,7 @@ export const constantRoute = [
         meta: {
           title: '一级分类管理',
           hidden: false,
-          icon: 'UserFilled',
+          icon: 'DocumentCopy',
         },
       },
       {
@@ -248,7 +150,7 @@ export const constantRoute = [
         meta: {
           title: '专栏管理',
           hidden: false,
-          icon: 'Platform',
+          icon: 'Postcard',
         },
       },
       {
@@ -269,7 +171,7 @@ export const constantRoute = [
         meta: {
           title: '板块管理',
           hidden: false,
-          icon: 'Platform',
+          icon: 'MessageBox',
         },
       },
       {
@@ -279,7 +181,7 @@ export const constantRoute = [
         meta: {
           title: '帖子管理',
           hidden: false,
-          icon: 'Monitor',
+          icon: 'ChatDotRound',
         },
       },
     ],
@@ -313,7 +215,7 @@ export const constantRoute = [
         meta: {
           title: '分类管理',
           hidden: false,
-          icon: 'UserFilled',
+          icon: 'FolderOpened',
         },
       },
       {
@@ -323,7 +225,7 @@ export const constantRoute = [
         meta: {
           title: '套餐管理',
           hidden: false,
-          icon: 'Monitor',
+          icon: 'SoldOut',
         },
       },
       {
@@ -433,7 +335,7 @@ export const constantRoute = [
     name: 'user',
     meta: {
       title: '用户管理',
-      icon: 'Goods',
+      icon: 'User',
       hidden: false,
     },
     redirect: '/user/info',
@@ -444,7 +346,7 @@ export const constantRoute = [
         name: 'UserMessage',
         meta: {
           title: '基础信息',
-          icon: 'ShoppingCartFull',
+          icon: 'User',
           hidden: false,
           threeMenu: true,
         },
@@ -499,7 +401,7 @@ export const constantRoute = [
     name: 'employee',
     meta: {
       title: '员工管理',
-      icon: 'Goods',
+      icon: 'Service',
       hidden: false,
     },
     redirect: '/employee/info',
@@ -510,7 +412,7 @@ export const constantRoute = [
         name: 'employee-info',
         meta: {
           title: '基础信息',
-          icon: 'ShoppingCartFull',
+          icon: 'Connection',
           hidden: false,
         },
       },
